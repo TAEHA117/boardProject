@@ -1,4 +1,4 @@
-src/application-dev.yml
+src/application-dev.*
 HELP.md
 .gradle
 build/
