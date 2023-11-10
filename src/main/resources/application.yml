@@ -1,0 +1,19 @@
+server:
+  port: 3000
+
+# 항상 콜론으로 끝날때는 스페이스바(공백) 넣어주기 - > 안넣으면 인식안함
+
+spring:
+  # 데이터베이스 설정
+  datasource:
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:orcl    #orcl -> xe사용자는 xe로 변경
+    username: PROJECT
+    password: _aA123456
+
+# 로거 설정
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: trace
