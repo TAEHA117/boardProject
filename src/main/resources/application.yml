@@ -1,10 +1,12 @@
-# 공유하지않는 yml파일이다. -> 각각 쓰는 파일 -> gitignore에
 server:
   port: 3000
 
 # 항상 콜론으로 끝날때는 스페이스바(공백) 넣어주기 - > 안넣으면 인식안함
 
 spring:
+  # 프로필 설정
+  profiles:
+    active: dev
 
   # 데이터베이스 설정
   datasource:
@@ -12,10 +14,6 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:orcl    #orcl -> xe사용자는 xe로 변경
     username: PROJECT
     password: _aA123456
-
-  sql:
-    init:
-      mode: always
 
   # 파일 업로드 설정
   servlet:
