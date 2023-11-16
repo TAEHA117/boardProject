@@ -11,8 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.context.TestPropertySource;
 
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +57,36 @@ public class Ex04 {
 
         Page<BoardData> data = repository.findAll(pageable);
         List<BoardData> items = data.getContent();
+        items.stream().forEach(System.out::println);
+    }
+
+    @Test
+    void test3 (){
+        BoardData data = repository.findById(3L).orElse(null);
+        System.out.println(data);
+    }
+
+    @Test
+    void test4() {
+        List<BoardData> items = repository.findBySubjectContainingOrContentContainingOrderBySeqDesc("목","용");
+
+        items.stream().forEach(System.out::println);
+    }
+
+    @Test
+    void test5() {
+        Pageable pageable = PageRequest.of(1,3, Sort.by(desc("seq")));
+        LocalDateTime now = LocalDateTime.now();
+
+        List<BoardData> items = repository.findByCreatedAtBetween(now.minusDays(1), now.plusDays(1), pageable);
+
+        items.stream().forEach(System.out::println);
+        
+    }
+    
+    @Test
+    void test6() {
+        List<BoardData> items = repository.getList("목","용");
         items.stream().forEach(System.out::println);
     }
 }
