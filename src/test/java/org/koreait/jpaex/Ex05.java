@@ -17,7 +17,6 @@ public class Ex05 {
     @Autowired
     private BoardDataRepository repository;
 
-
     @Test
     void test1() {
         QBoardData boardData = QBoardData.boardData;
