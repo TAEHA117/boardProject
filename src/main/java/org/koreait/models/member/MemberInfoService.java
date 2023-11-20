@@ -2,7 +2,7 @@ package org.koreait.models.member;
 
 import lombok.RequiredArgsConstructor;
 import org.koreait.entities.Member;
-import org.koreait.repositories.MemberRepository;
+import org.koreait.restcontrollers.MemberRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
-public class MemberInfoService implements UserDetailsService { // info가 들어가면 정보를 조회할 때 주로 사용하자 - 강사님방법
+public class MemberInfoService implements UserDetailsService { // info -> 주로 정보 조회
 
     private final MemberRepository repository;
 
@@ -29,10 +28,9 @@ public class MemberInfoService implements UserDetailsService { // info가 들어
 
         return MemberInfo.builder()
                 .email(member.getEmail())
-                .password(member.getPassword()) //getPassword <- 해쉬처리돼있음
+                .password(member.getPassword())
                 .authorities(authorities)
                 .member(member)
                 .build();
     }
-
 }

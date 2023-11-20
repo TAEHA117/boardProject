@@ -16,7 +16,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableJpaAuditing @EnableScheduling
+@EnableJpaAuditing
+@EnableScheduling
 @EnableConfigurationProperties(FileUploadConfig.class)
 public class MvcConfig implements WebMvcConfigurer {
 
@@ -42,16 +43,19 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(commonInterceptor)
                 .addPathPatterns("/**");
+
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
         registry.addResourceHandler(fileUploadConfig.getUrl() + "**")
                 .addResourceLocations("file:///" + fileUploadConfig.getPath());
     }
 
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+
         return new HiddenHttpMethodFilter();
     }
 
@@ -59,7 +63,9 @@ public class MvcConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
-        ms.addBasenames("messages.commons","messages.validations","messages.errors");
+        ms.addBasenames("messages.commons", "messages.validations", "messages.errors");
+
         return ms;
     }
+
 }
