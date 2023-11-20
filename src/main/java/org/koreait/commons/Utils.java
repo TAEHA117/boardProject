@@ -52,4 +52,11 @@ public class Utils {
         return String.format("%s/" + tplPath, isMobile()?"mobile":"front"); // 앞에 s가 프론트가 되거나 모바일이 될것이다.
 
     }
+
+    public static void loginInit(HttpSession session) {
+        session.removeAttribute("email");
+        session.removeAttribute("NotBlank_email");
+        session.removeAttribute("NotBlank_password");
+        session.removeAttribute("globalError");
+    }
 }
