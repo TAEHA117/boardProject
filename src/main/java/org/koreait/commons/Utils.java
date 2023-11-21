@@ -85,7 +85,7 @@ public class Utils {
      * 비회원 구분은 IP + 브라우저 종류
      *
      */
-    public int guestUid() {
+    public int guestUid() { // 예) 비회원이 장바구니 이용 -> 기록 로그 O -> 로그인했을 때 유저의 장바구니로 취합
         String ip = request.getRemoteAddr();
         String ua = request.getHeader("User-Agent");
 

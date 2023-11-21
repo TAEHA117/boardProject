@@ -27,17 +27,6 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private CommonInterceptor commonInterceptor;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/")
-                .setViewName("front/main/index");
-
-        registry.addViewController("/mypage")
-                .setViewName("front/main/index");
-
-        registry.addViewController("/admin")
-                .setViewName("front/main/index");
-    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

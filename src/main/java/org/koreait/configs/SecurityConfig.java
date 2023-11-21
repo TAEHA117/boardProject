@@ -57,6 +57,24 @@ public class SecurityConfig {
         http.authorizeHttpRequests(c -> {
            c.requestMatchers("/mypage/**").authenticated() // 회원 전용 (로그인한 회원만 접근 가능)
                    .requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 권한만 접근
+                   .requestMatchers(
+                           "/front/css/**",
+                           "/front/js/**",
+                           "/front/images/**",
+
+                           "/mobile/css/**",
+                           "/mobile/js/**",
+                           "/mobile/images/**",
+
+                           "/admin/css/**",
+                           "/admin/js/**",
+                           "/admin/images/**",
+
+                           "/common/css/**",
+                           "/common/js/**",
+                           "/common/images/**",
+                           fileUploadConfig.getUrl() + "**"
+                   ).permitAll()
                    .anyRequest().permitAll(); // 나머지 페이지는 권한 필요없이 자유롭게 접근할 수 있게
         });
 
@@ -77,7 +95,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
+    /*@Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         // 시큐리티 설정이 적용될 필요가 없는 경로 설정
         return w -> w.ignoring().requestMatchers(
@@ -98,6 +116,9 @@ public class SecurityConfig {
                 "/common/images/**",
                 fileUploadConfig.getUrl() + "**");
         }
+        -> 현 버전 -> 오류는 아니지만 권장사항이 아니다
+        -> 이 커스터마이저에 있는 로직을 -> 인가 설정에 있는 -> .requestMatchers()를 생성하고 넣어준다.
+        */
 
 
     @Bean
