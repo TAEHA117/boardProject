@@ -2,6 +2,7 @@ package org.koreait.models.file;
 
 
 import lombok.RequiredArgsConstructor;
+import net.coobird.thumbnailator.Thumbnails;
 import org.koreait.entities.FileInfo;
 import org.koreait.repositories.FileInfoRepository;
 import org.springframework.stereotype.Service;

@@ -16,7 +16,7 @@ public abstract class BaseMember extends Base{
 
     @CreatedBy
     @Column(length = 65, updatable = false) // 수정
-    private String createBy;
+    private String createdBy;
 
     @LastModifiedBy
     @Column(length = 65, insertable = false)
