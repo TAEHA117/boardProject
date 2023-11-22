@@ -3,11 +3,13 @@ package org.koreait.commons.configs;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 
 import org.koreait.entities.Configs;
 import org.koreait.repositories.ConfigsRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -19,34 +21,31 @@ public class ConfigInfoService {
         return get(code, clazz, null);
     }
 
-    public <T> T get(String code, TypeReference<T> type) {
-        return get(code, null, type);
-    }
+    public <T> T get(String code, TypeReference<T> typeReference) {
+    return get(code, null, typeReference);
+}
 
     public <T> T get(String code, Class<T> clazz, TypeReference<T> typeReference) {
-        try {
-            Configs configs = repository.findById(code).orElse(null);
-            if (configs == null || configs.getValue() == null || configs.getValue().isBlank()) {
-                return null;
-            }
 
-            String value = configs.getValue();
+        Configs config = repository.findById(code).orElse(null);
+        if (config == null || StringUtils.hasText(config.getValue())) {
+            return null;
+        }
+
+            String json = config.getValue();
 
             ObjectMapper om = new ObjectMapper();
-            T data = null;
-            try {
+            om.registerModule(new JavaTimeModule());
 
-                if (clazz == null) data = om.readValue(value, typeReference);
-                else data = om.readValue(value, clazz);
+            try {
+                T data = clazz == null ? om.readValue(json, typeReference) : om.readValue(json, clazz);
+
+                return data;
 
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
+                return null;
             }
-
-            return data;
-        } catch (Exception e) {
-            //e.printStackTrace();
-            return null;
         }
     }
-}
+
