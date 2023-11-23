@@ -28,6 +28,22 @@
                     </span>
                 </td>
             </tr>
+            <tr>
+                <th>글쓰기 권한</th> <!-- 관리자페이지 -> 게시판 등록 -> 권한 설정 -->
+                <td>
+                    <span>
+                        <input type="radio" name="authority" value="All" id="authority_all">
+                        <label for="authority_all">전체(비회원 + 회원 + 관리자)</label>
+                    </span>
+                    <span>
+                        <input type="radio" name="authority" value="MEMBER" id="authority_member">
+                        <label for="authority_member">회원</label>
+                    </span>                    <span>
+                        <input type="radio" name="authority" value="ADMIN" id="authority_admin">
+                        <label for="authority_admin">관리자</label>
+                    </span>
+                </td>
+            </tr>
         </table>
     </th:block>
 </html>
