@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <th:block th:fragment="common">
+    <th:block th:fragment="common" th:object="${boardConfigForm}"> <!-- 선택변수식 설정 -->
+        <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
 <!-- 이 곳이 공통적인 양식 구성하는 영역 -->
         <table class="table-cols">
             <tr>
                 <th>게시판 아이디</th> <!-- 게시판 아이디를 구분할 수 있게 -->
                 <td>
-                    <input type="text" name="bId"> <!-- 검증에 필요한 필수 데이터 - bId -->
+                    <input type="text" name="bId" th:field="*{bId}"> <!-- 검증에 필요한 필수 데이터 - bId - 적용 -->
+                    <div class="errors" th:each="err : ${#fields.errors('bId')}" th:text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th>게시판 이름</th>
                 <td>
-                    <input type="text" name="bName"> <!-- 검증에 필요한 필수 데이터 - bName -->
+                    <input type="text" name="bName" th:field="*{bName}"> <!-- 검증에 필요한 필수 데이터 - bName -->
+                    <div class="errors" th:each="err : ${#fields.errors('bName')}" th:text="{err}"></div>
                 </td>
             </tr>
             <tr>
                 <th>사용여부</th>
                 <td>
                     <span>
-                        <input type="radio" name="active" value="true" id="active_true">
+                        <input type="radio" name="active" value="true" id="active_true" th:field="*{active}">
                         <label for="active_true">사용</label>
                     </span>
                     <span>
-                        <input type="radio" name="active" value="false" id="active_false">
+                        <input type="radio" name="active" value="false" id="active_false" th:field="*{active}">
                         <label for="active_false">미사용</label>
                     </span>
                 </td>
@@ -32,14 +35,14 @@
                 <th>글쓰기 권한</th> <!-- 관리자페이지 -> 게시판 등록 -> 권한 설정 -->
                 <td>
                     <span>
-                        <input type="radio" name="authority" value="All" id="authority_all">
+                        <input type="radio" name="authority" value="All" id="authority_all" th:field="*{authority}">
                         <label for="authority_all">전체(비회원 + 회원 + 관리자)</label>
                     </span>
                     <span>
-                        <input type="radio" name="authority" value="MEMBER" id="authority_member">
+                        <input type="radio" name="authority" value="MEMBER" id="authority_member" th:field="*{authority}">
                         <label for="authority_member">회원</label>
                     </span>                    <span>
-                        <input type="radio" name="authority" value="ADMIN" id="authority_admin">
+                        <input type="radio" name="authority" value="ADMIN" id="authority_admin" th:field="*{authority}">
                         <label for="authority_admin">관리자</label>
                     </span>
                 </td>
@@ -47,7 +50,7 @@
             <tr>
                 <th>분류</th>
                 <td>
-                    <textarea name="category" placeholder="분류가 여러개인 경우는 엔터키를 눌러서 줄개행 하십시오."></textarea>
+                    <textarea name="category" placeholder="분류가 여러개인 경우는 엔터키를 눌러서 줄개행 하십시오." th:field="*{category}"></textarea>
                 </td>
             </tr>
         </table>
