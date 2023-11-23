@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="common">
+<!-- 이 곳이 공통적인 양식 구성하는 영역 -->
+        <table class="table-cols">
+            <tr>
+                <th>게시판 아이디</th> <!-- 게시판 아이디를 구분할 수 있게 -->
+                <td>
+                    <input type="text" name="bId">
+                </td>
+            </tr>
+            <tr>
+                <th>게시판 이름</th>
+                <td>
+                    <input type="text" name="bName">
+                </td>
+            </tr>
+            <tr>
+                <th>사용여부</th>
+                <td>
+                    <span>
+                        <input type="radio" name="active" value="true" id="active_true">
+                        <label for="active_true">사용</label>
+                    </span>
+                    <span>
+                        <input type="radio" name="active" value="false" id="active_false">
+                        <label for="active_false">미사용</label>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </th:block>
+</html>
