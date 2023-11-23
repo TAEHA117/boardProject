@@ -4,7 +4,9 @@ package org.koreait.controllers.admins;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.ScriptExceptionProcess;
 import org.koreait.commons.menus.Menu;
+import org.koreait.models.board.config.BoardConfigSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,9 +17,10 @@ import java.util.Objects;
 @Controller("adminBoardController")
 @RequestMapping("/admin/board")
 @RequiredArgsConstructor
-public class BoardController {
+public class BoardController implements ScriptExceptionProcess {
 
     private final HttpServletRequest request;
+    private final BoardConfigSaveService saveService;
 
     @GetMapping
     public String list(Model model) {
@@ -54,6 +57,7 @@ public class BoardController {
             return "admin/board/" + mode;
         }
 
+        saveService.save(form);
         return "redirect:/admin/board";
     }
 
