@@ -6,13 +6,13 @@
             <tr>
                 <th>게시판 아이디</th> <!-- 게시판 아이디를 구분할 수 있게 -->
                 <td>
-                    <input type="text" name="bId">
+                    <input type="text" name="bId"> <!-- 검증에 필요한 필수 데이터 - bId -->
                 </td>
             </tr>
             <tr>
                 <th>게시판 이름</th>
                 <td>
-                    <input type="text" name="bName">
+                    <input type="text" name="bName"> <!-- 검증에 필요한 필수 데이터 - bName -->
                 </td>
             </tr>
             <tr>
@@ -42,6 +42,12 @@
                         <input type="radio" name="authority" value="ADMIN" id="authority_admin">
                         <label for="authority_admin">관리자</label>
                     </span>
+                </td>
+            </tr>
+            <tr>
+                <th>분류</th>
+                <td>
+                    <textarea name="category" placeholder="분류가 여러개인 경우는 엔터키를 눌러서 줄개행 하십시오."></textarea>
                 </td>
             </tr>
         </table>
