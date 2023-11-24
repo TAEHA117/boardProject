@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass @Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Base {
+public abstract class Base { // 날짜 형식화
     @CreatedDate
     @Column(updatable = false)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
