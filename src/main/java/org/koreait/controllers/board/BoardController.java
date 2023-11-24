@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 // 시작
 @Controller
@@ -63,6 +66,18 @@ public class BoardController implements ScriptExceptionProcess {
 //        else if (mode.equals("delete")) pageTitle = "게시글 삭제"; 삭제는 일단 필요없음
         else if (mode.equals("view")) pageTitle = "게시글 제목";
 
+        List<String> addCommonScript = new ArrayList<>();
+        List<String> addScript = new ArrayList<>();
+
+        if (mode.equals("write") || mode.equals("update")) {
+            addCommonScript.add("ckeditor/ckeditor");
+            addCommonScript.add("fileManager");
+
+            addScript.add("board/form");
+        }
+
+        model.addAttribute("addCommonScript", addCommonScript);
+        model.addAttribute("addScript",addScript);
         model.addAttribute("pageTitle",pageTitle);
     }
 }
