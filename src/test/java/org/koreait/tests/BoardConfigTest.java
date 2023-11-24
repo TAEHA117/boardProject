@@ -50,7 +50,8 @@ public class BoardConfigTest{ // 서버가 닫혀있어도 테스트이 가능�
     void boardConfigTest2() throws Exception {
         mockMvc.perform(post("/admin/board/add/save")
                 .param("bId","notice")
-                .param("bName","공지사항"))
+                .param("bName","공지사항")
+                        .with(csrf()))
                 .andDo(print())
                 .andExpect(status().isOk());
 

@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class BoardConfigSaveService { // boardsaveservice
@@ -18,7 +20,7 @@ public class BoardConfigSaveService { // boardsaveservice
     public void save(BoardConfigForm form) { // 커맨드객체인 BoardConfigForm이 들어옴
 
         String bId = form.getBId();
-        String mode = form.getMode();
+        String mode = Objects.requireNonNullElse(form.getMode(),"add");
         Board board = null;
         if (mode.equals("edit") && StringUtils.hasText(bId)) {
             board = boardRepository.findById(bId).orElseThrow(BoardNotFoundException::new);
