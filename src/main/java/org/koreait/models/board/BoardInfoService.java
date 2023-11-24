@@ -12,7 +12,7 @@ public class BoardInfoService {
     private final BoardDataRepository boardDataRepository;
 
     public BoardData get(Long seq) { // 게시글 번호로 조회할 수 있게
-        
+
         BoardData data = boardDataRepository.findById(seq).orElseThrow(BoardNotFoundException::new);
 
         return data;

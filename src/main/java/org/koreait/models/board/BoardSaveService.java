@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.controllers.board.BoardForm;
 import org.koreait.entities.Board;
 import org.koreait.entities.BoardData;
+import org.koreait.models.board.config.BoardNotFoundException;
 import org.koreait.repositories.BoardDataRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class BoardSaveService { // 게시글 저장 서비스
 
         BoardData data = null;
         if (mode.equals("update") && seq != null) {
-            data = boardDataRepository.findById(seq).orElseThrow(BoardDataNotFoundException::new);
+            data = boardDataRepository.findById(seq).orElseThrow(BoardNotFoundException::new);
         } else {
             data = new BoardData();
         }

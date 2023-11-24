@@ -6,6 +6,9 @@ import org.koreait.commons.MemberUtil;
 import org.koreait.commons.ScriptExceptionProcess;
 import org.koreait.commons.Utils;
 import org.koreait.entities.Board;
+import org.koreait.entities.BoardData;
+import org.koreait.models.board.BoardInfoService;
+import org.koreait.models.board.BoardSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -23,6 +26,9 @@ import java.util.Objects;
 public class BoardController implements ScriptExceptionProcess {
     private final Utils utils; // 회원 접근권한 처리 -> 회원정보를 가져와야함
     private final MemberUtil memberUtil;
+    private final BoardSaveService saveService; // 의존성 추가
+    private final BoardInfoService infoService; // 의존성 추가
+
 
     @GetMapping("/write/{bId}") // 게시판 id를 가져옴
     // commonprosess 가 추가될 수 있기 때문에 Model 적용
@@ -44,14 +50,23 @@ public class BoardController implements ScriptExceptionProcess {
         String mode = Objects.requireNonNullElse(form.getMode(),"write");
         String bId = form.getBId();
 
+        commonProcess(bId, mode, model);
+
         if (errors.hasErrors()) {
             return utils.tpl("board/" + mode);
         }
+
+        saveService.save(form);
+
         return "redirect:/board/list/" + bId; // 게시판 id로 이동
     }
 
     @GetMapping("/view/{seq}")
     public String view(@PathVariable Long seq, Model model) { // 게시글보기는 게시글 번호로
+
+        BoardData data = infoService.get(seq);
+
+        model.addAttribute("boardData", data);
 
         return utils.tpl("board/view"); // 모바일도 알아서 바뀔수 있게 utils.tpl 적용
     }
