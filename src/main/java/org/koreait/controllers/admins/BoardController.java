@@ -33,13 +33,13 @@ public class BoardController implements ScriptExceptionProcess {
     @GetMapping("/add")
     public String register(@ModelAttribute BoardConfigForm form, Model model) {
 
-        commonProcess("add",model);
+        commonProcess("add", model);
 
         return "admin/board/add";
     }
 
     @GetMapping("/edit/{bId}")
-    public String update(@PathVariable String bId,Model model) {
+    public String update(@PathVariable String bId, Model model) {
 
         commonProcess("edit",model);
 
@@ -50,7 +50,7 @@ public class BoardController implements ScriptExceptionProcess {
     @PostMapping("/save")
     public String save(@Valid BoardConfigForm form, Errors errors, Model model) {
 
-        String mode = form.getMode();
+        String mode = Objects.requireNonNullElse(form.getMode(),"add"); // null값에 대한 오류 해결 -> Objects.requiredNonnull 추가
         commonProcess(mode, model);
 
         if (errors.hasErrors()) {

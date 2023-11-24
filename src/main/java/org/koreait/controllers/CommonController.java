@@ -25,7 +25,7 @@ public class CommonController {
 
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         if (e instanceof CommonException) {
-            CommonException commonException = (CommonException) e;
+            CommonException commonException = (CommonException)e;
             status = commonException.getStatus();
         }
 
@@ -33,7 +33,7 @@ public class CommonController {
 
         Map<String, String> attrs = new HashMap<>();
         attrs.put("status", String.valueOf(status.value()));
-        attrs.put("path",request.getRequestURI());
+        attrs.put("path", request.getRequestURI());
         attrs.put("method", request.getMethod());
         attrs.put("message", e.getMessage());
         attrs.put("timestamp", LocalDateTime.now().toString());
@@ -44,8 +44,8 @@ public class CommonController {
         PrintWriter pr = new PrintWriter(writer);
 
         e.printStackTrace(pr);
-        String errorMessage = ((StringWriter)writer).toString();
 
+        String errorMessage = ((StringWriter)writer).toString();
         log.error(errorMessage);
 
         return "error/common";

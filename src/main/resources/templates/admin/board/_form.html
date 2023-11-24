@@ -15,7 +15,7 @@
                 <th>게시판 이름</th>
                 <td>
                     <input type="text" name="bName" th:field="*{bName}"> <!-- 검증에 필요한 필수 데이터 - bName -->
-                    <div class="errors" th:each="err : ${#fields.errors('bName')}" th:text="{err}"></div>
+                    <div class="errors" th:each="err : ${#fields.errors('bName')}" th:text="${err}"></div>
                 </td>
             </tr>
             <tr>
