@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.util.ExceptionCollector;
 
 import java.nio.charset.Charset;
 
@@ -46,14 +48,15 @@ public class BoardConfigTest{ // 서버가 닫혀있어도 테스트이 가능�
     }
 
     @Test
-    @DisplayName("게시판 설정 저장 테스트 - 성공시 200")
+    @DisplayName("게시판 설정 저장 테스트 - 성공시 302")
     void boardConfigTest2() throws Exception {
-        mockMvc.perform(post("/admin/board/add/save")
+        mockMvc.perform(post("/admin/board/save")
                 .param("bId","notice")
                 .param("bName","공지사항")
                         .with(csrf()))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().is(302))
+                .andExpect(redirectedUrl("/admin/board"));
 
         // 실제 DB에도 설정 값이 있는지 체크
         Board board = boardRepository.findById("notice").orElse(null);
