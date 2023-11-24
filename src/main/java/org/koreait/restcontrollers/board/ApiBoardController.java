@@ -43,6 +43,7 @@ public class ApiBoardController {
 
     @GetMapping("/view/{seq}")
     public JSONData<BoardData> view(@PathVariable("seq") Long seq) {
+
         BoardData data = infoService.get(seq);
 
         return new JSONData<>(data);
