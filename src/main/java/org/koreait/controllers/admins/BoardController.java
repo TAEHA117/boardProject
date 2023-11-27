@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.ListData;
 import org.koreait.commons.ScriptExceptionProcess;
+import org.koreait.commons.constants.BoardAuthority;
 import org.koreait.commons.menus.Menu;
 import org.koreait.entities.Board;
 import org.koreait.models.board.config.BoardConfigInfoService;
@@ -79,6 +80,8 @@ public class BoardController implements ScriptExceptionProcess {
         model.addAttribute("pageTitle",pageTitle);
         model.addAttribute("menuCode","board");
         model.addAttribute("submenus", Menu.gets("board"));
-        model.addAttribute("subMenuCode",Menu.getSubMenuCode(request));
+        model.addAttribute("subMenuCode",Menu.getSubMenuCode(request)); // 공통적인 자원 -> 중복이 되지 않게 정의한 것
+
+        model.addAttribute("authorities", BoardAuthority.getList()); // enum 정리 클래스에 대한 list 메서드로 호출 -> 게시판 모든 페이지에서 상수를 공유할 수 있음
     }
 }

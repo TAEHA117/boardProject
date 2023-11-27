@@ -6,6 +6,7 @@
     <h1 th:text="${pageTitle}"></h1>
 
     <form name="frmList" method="post" th:action="@{/admin/board}" target="ifrmProcess" autocomplete="off">
+        <input type="hidden" name="_method" value="PATCH">
         <table class="table-rows">
             <thead>
                 <tr>
@@ -47,12 +48,21 @@
                     </td>
                     <td>
                         <select th:name="${'authority_' + status.index}">
-
+                            <option th:if="${authorities != null && !authorities.isEmpty()}" th:each="auth : ${authorities}" th:value="${auth[0]}" th:text="${auth[1]}" th:selected="${auth[1] == item.authority.name()}"></option>
+                            <!-- author의 name값을 넣어서 예) 검증 -->
                         </select>
+                    </td>
+                    <td>
+                        <a th:href="@{/admin/board/edit/{bId}(bId=*{bId})}" class="sbtn">설정 수정</a>
+                        <a th:href="@{/board/list/{bId}(bId=*{bId})}" target="_blank" class="sbtn blue">미리보기</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div class="table-action">
+            <button type="button" class="sbtn blue">선택 게시판 수정</button>
+            <button type="button" class="sbtn">선택 게시판 삭제</button>
+        </div>
     </form>
 
     <th:block th:if="${items != null && !items.isEmpty()}" th:replace="~{common/_pagination::pagination}"></th:block>
