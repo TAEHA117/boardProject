@@ -82,6 +82,7 @@ public class BoardController implements ScriptExceptionProcess {
         model.addAttribute("submenus", Menu.gets("board"));
         model.addAttribute("subMenuCode",Menu.getSubMenuCode(request)); // 공통적인 자원 -> 중복이 되지 않게 정의한 것
 
-        model.addAttribute("authorities", BoardAuthority.getList()); // enum 정리 클래스에 대한 list 메서드로 호출 -> 게시판 모든 페이지에서 상수를 공유할 수 있음
+        // enum 정리 클래스에 대한 list 메서드로 호출 -> 게시판 모든 페이지에서 상수를 공유할 수 있음
+        model.addAttribute("authorities", BoardAuthority.getList());
     }
 }

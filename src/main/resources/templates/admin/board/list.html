@@ -11,7 +11,7 @@
             <thead>
                 <tr>
                     <th width="40">
-                        <input type="checkbox" class="checkall" id="checkall">
+                        <input type="checkbox" class="checkall" id="checkall" data-target-name="idx">
                         <label for="checkall"></label>
                     </th>
                     <th width="200">게시판 아이디</th>
@@ -60,8 +60,8 @@
             </tbody>
         </table>
         <div class="table-action">
-            <button type="button" class="sbtn blue">선택 게시판 수정</button>
-            <button type="button" class="sbtn">선택 게시판 삭제</button>
+            <button type="button" class="sbtn blue form-action" data-mode="update" data-form-name="frmList">선택 게시판 수정</button>
+            <button type="button" class="sbtn form-action" data-mode="delete" data-form-name="frmList">선택 게시판 삭제</button>
         </div>
     </form>
 
