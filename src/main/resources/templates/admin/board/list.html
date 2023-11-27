@@ -5,5 +5,57 @@
 <section layout:fragment="content">
     <h1 th:text="${pageTitle}"></h1>
 
+    <form name="frmList" method="post" th:action="@{/admin/board}" target="ifrmProcess" autocomplete="off">
+        <table class="table-rows">
+            <thead>
+                <tr>
+                    <th width="40">
+                        <input type="checkbox" class="checkall" id="checkall">
+                        <label for="checkall"></label>
+                    </th>
+                    <th width="200">게시판 아이디</th>
+                    <th width="300">게시판 이름</th>
+                    <th width="150">사용 여부</th>
+                    <th width="200">글쓰기 권한</th>
+                    <th>비고</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${items == null || items.isEmpty()}">
+                    <td colspan="6" class="no_data">등록된 게시판이 없습니다.</td>
+                </tr>
+                <!-- if조건의 반대로 설정 unless -->
+                <tr th:unless="${items == null || items.isEmpty()}"
+                    th:each="item ,status : ${items}" th:object="${item}">
+                    <td>
+                        <input type="hidden"  th:name="${'bId_' + status.index}" th:value="*{bId}">
+                        <input type="checkbox" name="idx"
+                               th:value="${status.index}"
+                               th:id="${'idx_' + status.index}">
+                        <label th:for="${'idx_' + status.index}"></label>
+                    </td>
+                    <td th:text="*{bId}"></td>
+                    <td>
+                        <input type="text" th:name="${'bName_' + status.index}" th:value="*{bName}"> <!-- bName의 0번째,1번째 등 조회 -> 위 input type 쪽 로직 관련 -->
+
+                    </td>
+                    <td>
+                        <select th:name="${'active_' + status.index}">
+                        <option value="true" th:selected="*{active}">사용</option>
+                        <option value="false" th:selected="*{!active}">미사용</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select th:name="${'authority_' + status.index}">
+
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <th:block th:if="${items != null && !items.isEmpty()}" th:replace="~{common/_pagination::pagination}"></th:block>
+
 </section>
 </html>

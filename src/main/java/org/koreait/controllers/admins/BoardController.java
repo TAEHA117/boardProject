@@ -4,8 +4,11 @@ package org.koreait.controllers.admins;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.ListData;
 import org.koreait.commons.ScriptExceptionProcess;
 import org.koreait.commons.menus.Menu;
+import org.koreait.entities.Board;
+import org.koreait.models.board.config.BoardConfigInfoService;
 import org.koreait.models.board.config.BoardConfigSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +24,17 @@ public class BoardController implements ScriptExceptionProcess {
 
     private final HttpServletRequest request;
     private final BoardConfigSaveService saveService;
+    private final BoardConfigInfoService infoService;
 
     @GetMapping
-    public String list(Model model) {
+    public String list(@ModelAttribute BoardSearch search, Model model) {
 
         commonProcess("list",model);
+
+        ListData<Board> data = infoService.getList(search);
+
+        model.addAttribute("items",data.getContent()); // listdata 의 목록 데이타를 가져옴
+        model.addAttribute("pagination",data.getPagination());
 
         return "admin/board/list";
     }

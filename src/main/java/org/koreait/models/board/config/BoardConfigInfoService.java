@@ -41,8 +41,8 @@ public class BoardConfigInfoService {
         // Sort.Order.desc("엔티티 속성명"), Sort.Order.ase("엔티티 속성명")
 
 
-        Pageable pageable = PageRequest.of(page -1, limit, Sort.by // 1이아닌 0부터 시작 - size 크기
-                (desc("createAt"))); // 등록일자순으로 내림차순 설정
+        // 등록일자순으로 내림차순 설정  // 1이아닌 0부터 시작 - size 크기
+        Pageable pageable = PageRequest.of(page -1, limit, Sort.by(desc("createdAt"))); // d추가
 
 
         Page<Board> data =  repository.findAll(andBuilder, pageable);
